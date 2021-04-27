@@ -1,12 +1,6 @@
 package com.project.DigitalBank.domain;
-
 import com.project.DigitalBank.validationCustom.CEP.CepConstraint;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -14,6 +8,9 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @OneToOne
+    @JoinColumn(name="Fk_Cliente",  referencedColumnName ="id", nullable = false, unique = true)
+    private Cliente cliente;
     @CepConstraint
     private String Cep;
     @NotEmpty(message = "O campo rua não deve ser nulo ou vazio")
@@ -28,8 +25,15 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(Long id, String cep, String rua, String complemento, String cidade, String estado) {
+    public Endereco(Long id,
+                    Cliente cliente,
+                    String cep,
+                    String rua,
+                    String complemento,
+                    String cidade,
+                    String estado) {
         Id = id;
+        this.cliente = cliente;
         Cep = cep;
         Rua = rua;
         Complemento = complemento;
@@ -43,6 +47,14 @@ public class Endereco {
 
     public void setId(Long id) {
         Id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getCep() {

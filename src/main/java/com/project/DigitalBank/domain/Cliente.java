@@ -19,6 +19,7 @@ import java.util.Objects;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long Id;
 
     @NotEmpty(message = "{campo.nome.obrigatorio}")

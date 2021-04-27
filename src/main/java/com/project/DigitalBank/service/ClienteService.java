@@ -24,7 +24,7 @@ public class ClienteService {
 
     public Cliente findById(Long id){
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não Encotnrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado"));
     }
 
     public Cliente save(Cliente cliente){

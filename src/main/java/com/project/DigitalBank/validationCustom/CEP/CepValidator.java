@@ -16,7 +16,7 @@ public class CepValidator implements ConstraintValidator<CepConstraint, String>{
 
         if(cepField.length() <9){
             return false; }
-        else if (cepField.length() >9){
+        else if (cepField.length() >10){
             return false;
         }
         else {
@@ -30,7 +30,7 @@ public class CepValidator implements ConstraintValidator<CepConstraint, String>{
                     && CEP_Number.length() == 5
                     && CEP_DV.matches("[0-9]+")
                     && CEP_DV.length() == 3
-                    && CEP_SEPARADOR=="-";
+                    && CEP_SEPARADOR.matches("-");
 
     }
 }
