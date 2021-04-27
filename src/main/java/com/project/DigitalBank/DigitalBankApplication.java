@@ -10,10 +10,10 @@ public class DigitalBankApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DigitalBankApplication.class, args);
 
-		String nome = "533942538-30";
-		String CNH_Number = nome.substring(0, 9);
-		String CNH_SEP = nome.substring(9, 10);
-		String CNH_DV = nome.substring(10, 12);
+		String nome = "38400-750";
+		String CNH_Number = nome.substring(0, 5);
+		String CNH_SEP = nome.substring(5, 6);
+		String CNH_DV = nome.substring(6, 9);
 		System.out.println("NOME IMP: " + nome);
 		System.out.println("PRIMEIROS NUMEROS: " + CNH_Number);
 		System.out.println("ULTIMOS NUMEROS: " + CNH_DV);
