@@ -2,7 +2,9 @@ package com.project.DigitalBank.service;
 
 import com.project.DigitalBank.domain.Cliente;
 import com.project.DigitalBank.repository.ClienteRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,11 @@ public class ClienteService {
 
     public List<Cliente> findAll(){
         return clienteRepository.findAll();
+    }
+
+    public Cliente findById(Long id){
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não Encotnrado"));
     }
 
     public Cliente save(Cliente cliente){

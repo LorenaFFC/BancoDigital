@@ -5,6 +5,7 @@ import com.project.DigitalBank.service.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,12 +21,17 @@ public class ClienteController {
     }
 
     @GetMapping
-    private ResponseEntity<List<Cliente>> findAll(){
+    private ResponseEntity<List<Cliente>> findAll() {
         return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
     }
-
+    @GetMapping(path="/{id}")
+    private ResponseEntity<Cliente> findById(@PathVariable long id) {
+        return new ResponseEntity<>(clienteService.findById(id), HttpStatus.OK);
+    }
     @PostMapping
-    private ResponseEntity<Cliente> save(@RequestBody @Valid  Cliente cliente){
-        return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
+    private ResponseEntity<Cliente> save(@RequestBody @Valid Cliente cliente) {
+
+            return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
+
     }
 }
