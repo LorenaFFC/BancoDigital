@@ -111,6 +111,19 @@ public class Cliente {
     public void setDtNasc(LocalDate dtNasc) {
         DtNasc = dtNasc;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+
+                " Nome='" + Nome + '\'' +
+                ", Sobrenome='" + Sobrenome + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Cnh='" + Cnh + '\'' +
+                ", CPF='" + CPF + '\'' +
+                ", DtNasc=" + DtNasc +
+                '}';
+    }
 }
 
 

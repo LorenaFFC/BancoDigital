@@ -16,11 +16,13 @@ public class EnderecoService {
     EnderecoRepository enderecoRepository;
     ClienteService clienteService;
     ClienteRepository clienteRepository;
+    PropostaService propostaService;
 
-    public EnderecoService(EnderecoRepository enderecoRepository, ClienteService clienteService,ClienteRepository clienteRepository) {
+    public EnderecoService(EnderecoRepository enderecoRepository, ClienteService clienteService,ClienteRepository clienteRepository, PropostaService propostaService) {
         this.enderecoRepository = enderecoRepository;
         this.clienteService = clienteService;
         this.clienteRepository = clienteRepository;
+        this.propostaService = propostaService;
     }
 
     public List<Endereco> findAll(){
@@ -34,11 +36,14 @@ public class EnderecoService {
 
     public Endereco save(Endereco endereco){
         Long idCliente = endereco.getCliente().getId();
+        Long idEndereco = endereco.getId();
 
         Cliente cli = clienteRepository.findById(idCliente)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não existe!!"));
         endereco.setCliente(cli);
+
         return enderecoRepository.save(endereco);
+
 
 
     }

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idEnd")
     private Long Id;
     @OneToOne
     @JoinColumn(name="Fk_Cliente",  referencedColumnName ="id", nullable = false, unique = true)
@@ -95,6 +96,19 @@ public class Endereco {
 
     public void setEstado(String estado) {
         Estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "Id=" + Id +
+                ", cliente=" + cliente +
+                ", Cep='" + Cep + '\'' +
+                ", Rua='" + Rua + '\'' +
+                ", Complemento='" + Complemento + '\'' +
+                ", Cidade='" + Cidade + '\'' +
+                ", Estado='" + Estado + '\'' +
+                '}';
     }
 }
 

@@ -1,6 +1,7 @@
 package com.project.DigitalBank.controller;
 
 import com.project.DigitalBank.domain.Endereco;
+import com.project.DigitalBank.service.ClienteService;
 import com.project.DigitalBank.service.EnderecoService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,12 @@ import java.util.List;
 @RequestMapping("enderecos")
 public class EnderecoController {
 
+    private ClienteService clienteService;
     private EnderecoService enderecoService;
 
 
-    private EnderecoController(EnderecoService enderecoService) {
+    public EnderecoController(ClienteService clienteService, EnderecoService enderecoService) {
+        this.clienteService = clienteService;
         this.enderecoService = enderecoService;
     }
 
@@ -35,6 +38,7 @@ public class EnderecoController {
 
     @PostMapping
     private ResponseEntity<Object> save(@RequestBody @Valid  Endereco endereco){
+
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(URI.create("/upload"));

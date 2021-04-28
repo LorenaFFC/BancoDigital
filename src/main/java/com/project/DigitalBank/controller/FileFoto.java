@@ -17,7 +17,12 @@ public class FileFoto {
     }
 
     @PostMapping
-    private ResponseEntity<Object> fileUpload(@RequestBody MultipartFile file){
-        return new ResponseEntity<>(fileFotoService.saveFile(file), HttpStatus.CREATED);
+    private ResponseEntity<Object> fileUpload(@RequestBody MultipartFile file, Long id){
+        if(fileFotoService.verificaCadastro(id)=="Encontrado") {
+            return new ResponseEntity<>(fileFotoService.saveFile(file), HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }
