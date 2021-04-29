@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("proposta")
@@ -18,6 +19,10 @@ public class PropostaController {
         this.propostaService = propostaService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Proposta>> findAll(){
+        return  new ResponseEntity<>(propostaService.findAll(), HttpStatus.OK);
+    }
     @GetMapping(path= "/{id}")
     public ResponseEntity<Proposta> findById( Long id){
         return  new ResponseEntity<>(propostaService.findById(id), HttpStatus.OK);

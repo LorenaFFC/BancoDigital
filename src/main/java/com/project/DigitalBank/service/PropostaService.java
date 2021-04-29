@@ -1,9 +1,6 @@
 package com.project.DigitalBank.service;
 
-import com.project.DigitalBank.domain.Cliente;
-import com.project.DigitalBank.domain.Email;
-import com.project.DigitalBank.domain.Endereco;
-import com.project.DigitalBank.domain.Proposta;
+import com.project.DigitalBank.domain.*;
 import com.project.DigitalBank.repository.ClienteRepository;
 import com.project.DigitalBank.repository.EnderecoRepository;
 import com.project.DigitalBank.repository.PropostaRepositorty;
@@ -12,24 +9,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 
 @Service
 public class PropostaService {
 
-    private Proposta prop ;
+    private ContaService contaService ;
+    private PropostaService propostaService;
     private PropostaRepositorty propostaRepositorty;
     private ClienteRepository clienteRepository;
     private EnderecoRepository enderecoRepository;
     private Mailer emailService;
 
-    public PropostaService(PropostaRepositorty propostaRepositorty, ClienteRepository clienteRepository, EnderecoRepository enderecoRepository, Mailer emailService) {
-
+    public PropostaService(ContaService contaService,
+                           PropostaRepositorty propostaRepositorty,
+                           ClienteRepository clienteRepository,
+                           EnderecoRepository enderecoRepository,
+                           Mailer emailService) {
+        this.contaService = contaService;
         this.propostaRepositorty = propostaRepositorty;
         this.clienteRepository = clienteRepository;
         this.enderecoRepository = enderecoRepository;
         this.emailService = emailService;
     }
 
+    public List<Proposta> findAll(){
+        return propostaRepositorty.findAll();
+    }
     public Proposta findById(Long id){
    ;
         return propostaRepositorty.findById(id)
@@ -59,10 +66,9 @@ public class PropostaService {
         Proposta proposta = propostaRepositorty.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Proposta não encontrada"));
 
+        contaService.createConta();
         proposta.setAceite(true);
-
-
-       return save(proposta);
+         return save(proposta);
     }
 
 
@@ -70,7 +76,7 @@ public class PropostaService {
     public  void envioEmail(Proposta proposta){
         String destinatario = proposta.getCliente().getEmail();
         String body= proposta.getCliente().toString() +  "   " + proposta.getEndereco().toString();
-        Email email = new Email("lorena.cunha@gmail.com",
+        Email email = new Email("fernandescunhalorena3@gmail.com",
                 destinatario,
                 "Criação Conta",
                 body);

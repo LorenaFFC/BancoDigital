@@ -7,6 +7,7 @@ public class Proposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
     @OneToOne
     @JoinColumn(name="Fk_Cliente",  referencedColumnName ="id", nullable = false, unique = true)
